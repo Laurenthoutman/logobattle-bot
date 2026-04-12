@@ -94,7 +94,7 @@ async def announce_vote(interaction: discord.Interaction, lien_fil: str):
         await interaction.response.send_message("❌ Impossible de trouver le salon d'annonce.", ephemeral=True)
         return
     message = (
-        "Hello  , J'espère que vous allez bien. 🤠\n\n"
+        "Hello <@&776417520503750748>, J'espère que vous allez bien. 🤠\n\n"
         "Vous pouvez voter pour vos logos favoris en cliquant sur l'emoji ✅.\n\n"
         "**PS : On vous invite à lire le détail de chaque brief avant de faire votre choix.**\n\n"
         f"{lien_fil}\n\n"
