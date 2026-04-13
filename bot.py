@@ -30,7 +30,9 @@ async def on_ready():
     print(f"✅ LogoBattle Bot connecté en tant que {bot.user}")
 
 
-# COMMANDE 1 : Supprimer toutes les réactions d'un fil
+# ─────────────────────────────────────────
+#  COMMANDE 1 : Supprimer toutes les réactions d'un fil
+# ─────────────────────────────────────────
 @bot.tree.command(
     guild=guild_obj,
     name="clear-reactions",
@@ -54,7 +56,9 @@ async def clear_reactions(interaction: discord.Interaction):
     await interaction.followup.send(f"✅ Réactions supprimées sur **{count} message(s)** dans le fil **{thread.name}**.", ephemeral=True)
 
 
-# COMMANDE 2 : Ajouter ✅ à tous les messages d'un fil
+# ─────────────────────────────────────────
+#  COMMANDE 2 : Ajouter ✅ à tous les messages d'un fil
+# ─────────────────────────────────────────
 @bot.tree.command(
     guild=guild_obj,
     name="add-checkmark",
@@ -76,7 +80,9 @@ async def add_checkmark(interaction: discord.Interaction):
     await interaction.followup.send(f"✅ Réaction ajoutée sur **{count} message(s)** dans le fil **{thread.name}**.", ephemeral=True)
 
 
-# COMMANDE 3 : Annoncer le lancement des votes
+# ─────────────────────────────────────────
+#  COMMANDE 3 : Annoncer le lancement des votes
+# ─────────────────────────────────────────
 @bot.tree.command(
     guild=guild_obj,
     name="announce-vote",
@@ -94,7 +100,7 @@ async def announce_vote(interaction: discord.Interaction, lien_fil: str):
         await interaction.response.send_message("❌ Impossible de trouver le salon d'annonce.", ephemeral=True)
         return
     message = (
-        "Hello <@&776417520503750748>, J'espère que vous allez bien. 🤠\n\n"
+        "Hello <@&776417520503750748> , J'espère que vous allez bien. 🤠\n\n"
         "Vous pouvez voter pour vos logos favoris en cliquant sur l'emoji ✅.\n\n"
         "**PS : On vous invite à lire le détail de chaque brief avant de faire votre choix.**\n\n"
         f"{lien_fil}\n\n"
@@ -102,10 +108,64 @@ async def announce_vote(interaction: discord.Interaction, lien_fil: str):
         "Bonne chance et bon weekend à tous ! 🌞"
     )
     await channel.send(message)
-    await interaction.response.send_message("✅ Annonce envoyée dans le salon principal !", ephemeral=True)
+    await interaction.response.send_message("✅ Annonce des votes envoyée !", ephemeral=True)
 
 
-# Lancement du bot
+# ─────────────────────────────────────────
+#  COMMANDE 4 : Annoncer la nouvelle bataille
+# ─────────────────────────────────────────
+@bot.tree.command(
+    guild=guild_obj,
+    name="announce-bataille",
+    description="Annonce le gagnant et la nouvelle bataille dans le salon principal."
+)
+@app_commands.describe(
+    numero_bataille="Numéro de la bataille qui vient de se terminer (ex: 216)",
+    mention_gagnant="Mention du gagnant (ex: @pseudo)",
+    nombre_votes="Nombre de votes obtenus (ex: 12)",
+    nom_gagnant="Nom affiché du gagnant (ex: Jean)",
+    lien_nouvelle_bataille="Lien du fil de la nouvelle bataille",
+    lien_logo_gagnant="Lien direct vers le logo gagnant"
+)
+async def announce_bataille(
+    interaction: discord.Interaction,
+    numero_bataille: int,
+    mention_gagnant: str,
+    nombre_votes: int,
+    nom_gagnant: str,
+    lien_nouvelle_bataille: str,
+    lien_logo_gagnant: str
+):
+    if not has_permission(interaction):
+        await interaction.response.send_message("❌ Tu n'as pas la permission d'utiliser cette commande.", ephemeral=True)
+        return
+    channel = bot.get_channel(ANNOUNCE_CHANNEL_ID)
+    if channel is None:
+        await interaction.response.send_message("❌ Impossible de trouver le salon d'annonce.", ephemeral=True)
+        return
+    message = (
+        f"Hello <@&776417520503750748> , Bravo à tous les participants de la bataille **#{numero_bataille}**. 👏\n\n"
+        f"Cette semaine c'est {mention_gagnant} qui a gagné la guerre avec **{nombre_votes} votes**. 🥳\n"
+        f"**{nom_gagnant}** a donc pu choisir le thème de la nouvelle bataille. {lien_nouvelle_bataille}\n\n"
+        f"Lien du logo gagnant :\n\n"
+        f"{lien_logo_gagnant}\n\n"
+        "Bonne semaine et bon travail à tous. 🌞\n"
+        "*Pour accéder aux précédentes batailles, il vous suffit de cliquer en haut sur le bouton fil ( **#** )*\n\n"
+        "🚧 En 2026, la Bataille débarque sur Instagram… et aura même son propre site web. "
+        "Chaque lundi, vous y retrouverez les nouveaux thèmes, les gagnants auront droit à un post dédié, "
+        "et nouveauté, il y aura des récompenses pour les participants. 🎁\n\n"
+        "Je prépare aussi une grosse vidéo YouTube pour dévoiler la nouvelle identité de la Bataille et tout ce qui "
+        "accompagne le projet (oui, il y aura bien plus que de simples concours de logos). "
+        "Le tout est encore en construction, mais vous pouvez déjà vous abonner si ça vous tente. ☀️\n\n"
+        "https://www.instagram.com/batailledelogos/"
+    )
+    await channel.send(message)
+    await interaction.response.send_message("✅ Annonce de la nouvelle bataille envoyée !", ephemeral=True)
+
+
+# ─────────────────────────────────────────
+#  Lancement du bot
+# ─────────────────────────────────────────
 token = os.environ.get("DISCORD_TOKEN")
 if not token:
     raise ValueError("❌ La variable d'environnement DISCORD_TOKEN est manquante !")
