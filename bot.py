@@ -164,6 +164,39 @@ async def announce_bataille(
 
 
 # ─────────────────────────────────────────
+#  COMMANDE 5 : Nettoyer le salon des gagnants
+# ─────────────────────────────────────────
+@bot.tree.command(
+    guild=guild_obj,
+    name="clean-salon",
+    description="Supprime tous les messages du salon des gagnants."
+)
+async def clean_salon(interaction: discord.Interaction):
+    if not has_permission(interaction):
+        await interaction.response.send_message("❌ Tu n'as pas la permission d'utiliser cette commande.", ephemeral=True)
+        return
+    await interaction.response.defer(ephemeral=True, thinking=True)
+
+    channel = bot.get_channel(1482999485536800949)
+    if channel is None:
+        await interaction.followup.send("❌ Salon introuvable.", ephemeral=True)
+        return
+
+    deleted = 0
+    async for message in channel.history(limit=None):
+        try:
+            await message.delete()
+            deleted += 1
+        except discord.Forbidden:
+            await interaction.followup.send("❌ Le bot n'a pas la permission de supprimer des messages dans ce salon.", ephemeral=True)
+            return
+        except discord.HTTPException:
+            pass
+
+    await interaction.followup.send(f"✅ **{deleted} message(s)** supprimé(s) dans le salon des gagnants.", ephemeral=True)
+
+
+# ─────────────────────────────────────────
 #  Lancement du bot
 # ─────────────────────────────────────────
 token = os.environ.get("DISCORD_TOKEN")
