@@ -54,7 +54,7 @@ async def clear_reactions(interaction: discord.Interaction):
                 await message.clear_reaction(reaction.emoji)
             count += 1
     await interaction.followup.send(f"✅ Réactions supprimées sur **{count} message(s)** dans le fil **{thread.name}**.", ephemeral=True)
-
+ 
 
 # ─────────────────────────────────────────
 #  COMMANDE 2 : Ajouter ✅ à tous les messages d'un fil
