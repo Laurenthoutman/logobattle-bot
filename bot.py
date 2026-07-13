@@ -151,13 +151,11 @@ async def announce_bataille(
         f"{lien_logo_gagnant}\n\n"
         "Bonne semaine et bon travail à tous. 🌞\n"
         "*Pour accéder aux précédentes batailles, il vous suffit de cliquer en haut sur le bouton fil ( **#** )*\n\n"
-        "🚧 En 2026, la Bataille débarque sur Instagram… et aura même son propre site web. "
-        "Chaque lundi, vous y retrouverez les nouveaux thèmes, les gagnants auront droit à un post dédié, "
-        "et nouveauté, il y aura des récompenses pour les participants. 🎁\n\n"
-        "Je prépare aussi une grosse vidéo YouTube pour dévoiler la nouvelle identité de la Bataille et tout ce qui "
-        "accompagne le projet (oui, il y aura bien plus que de simples concours de logos). "
-        "Le tout est encore en construction, mais vous pouvez déjà vous abonner si ça vous tente. ☀️\n\n"
-        "https://www.instagram.com/batailledelogos/"
+       "Mon nouveau projet, sur lequel vous pourrez prochainement retrouver toutes les annonces des Batailles de logos ainsi qu'une sélection des meilleurs designs de chaque mois, a enfin été annoncé sur ma chaîne YouTube.\n"
+"Vous pouvez déjà vous y abonner ici :\n"
+"👉 https://www.instagram.com/jouters.collective/\n\n"
+"Je travaille actuellement sur la partie 2 de la vidéo et, une fois celle-ci terminée, les premières publications commenceront.\n"
+"Merci pour votre patience ✌️"
     )
     await channel.send(message)
     await interaction.response.send_message("✅ Annonce de la nouvelle bataille envoyée !", ephemeral=True)
