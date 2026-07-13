@@ -155,7 +155,7 @@ async def announce_bataille(
 "Vous pouvez déjà vous y abonner ici :\n"
 "👉 https://www.instagram.com/jouters.collective/\n\n"
 "Je travaille actuellement sur la partie 2 de la vidéo et, une fois celle-ci terminée, les premières publications commenceront.\n"
-"Merci pour votre patience ✌️"
+"Merci pour votre patience ⚔️"
     )
     await channel.send(message)
     await interaction.response.send_message("✅ Annonce de la nouvelle bataille envoyée !", ephemeral=True)
