@@ -11,7 +11,7 @@ ANNOUNCE_CHANNEL_ID = 890677502169735179  # ID du salon principal (annonces vote
 ALLOWED_ROLES       = ["Modérateur", "Crieur"]  # Rôles autorisés à utiliser les commandes
 # ─────────────────────────────────────────
 
-intents = discord.Intents.all()
+intents = discord.Intents.default()
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 guild_obj = discord.Object(id=GUILD_ID)
